@@ -52,4 +52,20 @@ public class Schedule {
         }
         return schedules;
     }
+
+    public boolean isWithinRange(LocalDate date) {
+        if (excludedDays != null && excludedDays.contains(date.getDayOfWeek())) {
+            return false;
+        }
+
+        return (
+                (startDate.isBefore(date) && endDate.isAfter(date))
+                        || startDate.isEqual(date)
+                        || endDate.isEqual(date)
+        );
+    }
+
+    public DiscountEvent getEvent() {
+        return event;
+    }
 }
