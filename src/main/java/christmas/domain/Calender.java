@@ -4,6 +4,7 @@ import christmas.constants.DiscountEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Calender {
     private final List<Schedule> schedules = new ArrayList<>();
@@ -13,9 +14,11 @@ public class Calender {
     }
 
     public List<DiscountEvent> getDiscountEventForDate(LocalDate date) {
+        Objects.requireNonNull(date);
+
         List<DiscountEvent> events = new ArrayList<>();
         for (Schedule schedule : schedules) {
-            if(schedule.isWithinRange(date)) {
+            if (schedule.isWithinRange(date)) {
                 events.add(schedule.getEvent());
             }
         }

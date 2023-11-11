@@ -5,6 +5,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Schedule {
     LocalDate startDate;
@@ -19,6 +20,10 @@ public class Schedule {
         private List<DayOfWeek> excludedDays;
 
         public Builder(LocalDate startDate, LocalDate endDate, DiscountEvent event) {
+            Objects.requireNonNull(startDate);
+            Objects.requireNonNull(endDate);
+            Objects.requireNonNull(event);
+
             this.startDate = startDate;
             this.endDate = endDate;
             this.event = event;
