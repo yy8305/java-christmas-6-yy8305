@@ -31,4 +31,8 @@ public class MenuCart {
             throw new IllegalArgumentException("[ERROR] 메뉴는 한 번에 최대 20개 까지만 주문할 수 있습니다. 다시 입력해 주세요.");
         }
     }
+
+    public Map<Menu, Integer> getMenus() {
+        return menus;
+    }
 }
