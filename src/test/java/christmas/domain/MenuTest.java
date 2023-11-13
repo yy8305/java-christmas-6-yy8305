@@ -32,7 +32,7 @@ class MenuTest {
     @Test
     void testHasMenuNameWithNull() {
         assertThatNullPointerException().isThrownBy(() -> {
-            new Menu(null);
+            new Menu((String) null);
         });
     }
 }

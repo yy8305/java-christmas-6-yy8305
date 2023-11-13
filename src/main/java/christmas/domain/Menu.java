@@ -4,10 +4,14 @@ import christmas.constants.MenuBook;
 import java.util.Objects;
 
 public class Menu {
-    private MenuBook menu;
+    private final MenuBook menu;
 
     Menu(String name) {
         this.menu = getMenu(name);
+    }
+
+    Menu(MenuBook menu) {
+        this.menu = menu;
     }
 
     private MenuBook getMenu(String menuName) {
@@ -24,5 +28,24 @@ public class Menu {
 
     public MenuBook getMenu() {
         return menu;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof Menu)) {
+            return false;
+        }
+
+        MenuBook target = ((Menu) obj).getMenu();
+        return Objects.equals(target.getName(), menu.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(menu.getName());
     }
 }
