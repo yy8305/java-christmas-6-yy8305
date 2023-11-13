@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
+import christmas.constants.MenuType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -74,6 +75,18 @@ class MenuCartTest {
         Menu menu = new Menu(menuName);
         cart.addMenu(menu, expectedCount);
         Integer actual = cart.getMenus().get(menu);
+
+        assertThat(actual).isEqualTo(expectedCount);
+    }
+
+    @DisplayName("장바구니에 담았던 애피타이저 메뉴 개수가 2개 이다.")
+    @Test
+    void testMenuTypeCount() {
+        Integer expectedCount = 3;
+        cart.addMenu(new Menu("양송이수프"), 1);
+        cart.addMenu(new Menu("타파스"), 2);
+
+        Integer actual = cart.getMenuTypeCount(MenuType.APPETIZER);
 
         assertThat(actual).isEqualTo(expectedCount);
     }
