@@ -21,7 +21,7 @@ class CalenderTest {
     private final List<Integer> giftDays = List.of(3, 10, 17, 24, 25, 31);
     private final Integer defaultStartDay = 1;
     private final Integer defaultEndDay = 31;
-    private final Integer crismasDay = 25;
+    private final Integer christmasDay = 25;
 
     private Schedule scheduleBuild(Integer start, Integer end, DiscountEvent event, List<DayOfWeek> days) {
         Builder schedule = new Schedule.Builder(
@@ -41,12 +41,10 @@ class CalenderTest {
         List<Schedule> schedules = Schedule.makeSchedules(
                 eventYear, eventMonth, giftDays, DiscountEvent.SPECIAL
         );
-        schedules.add(scheduleBuild(defaultStartDay, crismasDay, DiscountEvent.CRISMAS_D_DAY, null));
-        schedules.add(scheduleBuild(defaultStartDay, defaultEndDay, DiscountEvent.WEEK_DAY,
-                List.of(DayOfWeek.FRIDAY, DayOfWeek.SATURDAY)));
+        schedules.add(scheduleBuild(defaultStartDay, christmasDay, DiscountEvent.CHRISTMAS_D_DAY, null));
+        schedules.add(scheduleBuild(defaultStartDay, defaultEndDay, DiscountEvent.WEEK_DAY, List.of(DayOfWeek.FRIDAY, DayOfWeek.SATURDAY)));
         schedules.add(scheduleBuild(defaultStartDay, defaultEndDay, DiscountEvent.WEEK_END, List.of(
-                DayOfWeek.SUNDAY, DayOfWeek.MONDAY, DayOfWeek.TUESDAY,
-                DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY
+                DayOfWeek.SUNDAY, DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY
         )));
         schedules.add(scheduleBuild(defaultStartDay, defaultEndDay, DiscountEvent.GIFT, null));
         for (Schedule schedule : schedules) {
@@ -62,7 +60,7 @@ class CalenderTest {
     @DisplayName("크리스마스 디데이 할인 이벤트 날짜를 달력에 정상적으로 추가된다.")
     @Test
     void testAddChrismasDdayEvent() {
-        Schedule schedule = scheduleBuild(defaultStartDay, crismasDay, DiscountEvent.CRISMAS_D_DAY, null);
+        Schedule schedule = scheduleBuild(defaultStartDay, christmasDay, DiscountEvent.CHRISTMAS_D_DAY, null);
 
         assertThatNoException().isThrownBy(() -> {
             calender.addSchedule(schedule);
@@ -133,7 +131,7 @@ class CalenderTest {
         List<DiscountEvent> events = calender.getDiscountEventForDate(
                 LocalDate.of(eventYear, eventMonth, giftDays.get(0)));
         assertThat(events).contains(
-                DiscountEvent.CRISMAS_D_DAY,
+                DiscountEvent.CHRISTMAS_D_DAY,
                 DiscountEvent.WEEK_DAY,
                 DiscountEvent.SPECIAL,
                 DiscountEvent.GIFT
