@@ -27,6 +27,10 @@ public enum MenuBook {
         this.amount = amount;
     }
 
+    public MenuType getMenuType() {
+        return menuType;
+    }
+
     public String getName() {
         return name;
     }
