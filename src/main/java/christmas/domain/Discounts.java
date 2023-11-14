@@ -37,4 +37,14 @@ public class Discounts {
     public MenuCart getGiftMenus() {
         return giftMenus;
     }
+
+    public void addAmountByEvent(DiscountEvent event, Integer amount) {
+        Objects.requireNonNull(amount);
+
+        for (DiscountEvent discountEvent : amountsByEvent.keySet()) {
+            if (discountEvent.equals(event)) {
+                amountsByEvent.merge(discountEvent, amount, Integer::sum);
+            }
+        }
+    }
 }
