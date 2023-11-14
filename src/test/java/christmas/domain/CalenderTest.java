@@ -7,7 +7,6 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 import christmas.TestDefault;
 import christmas.constants.DiscountEvent;
 import christmas.constants.Settings;
-import christmas.domain.Schedule.Builder;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
@@ -109,6 +108,26 @@ class CalenderTest extends TestDefault {
     void testGetDiscountEventForDateWithNull() {
         assertThatNullPointerException().isThrownBy(() -> {
             calender.getDiscountEventForDate(null);
+        });
+    }
+
+    @DisplayName("예약 날짜를 달력에 저장 한다.")
+    @Test
+    void testSetReservationDate() {
+        final LocalDate reservationDate = LocalDate.of(
+                Settings.EVENT_YEAR.getValue(), Settings.EVENT_MONTH.getValue(), 3
+        );
+
+        calender.setReservationDate(reservationDate);
+
+        assertThat(calender.getReservationDate()).isEqualTo(reservationDate);
+    }
+
+    @DisplayName("예약 날짜를 달력에 저장 할때 null을 전달할 경우 예외가 발생 한다.")
+    @Test
+    void testSetReservationDateNullExceptionCheck() {
+        assertThatNullPointerException().isThrownBy(() -> {
+            calender.setReservationDate(null);
         });
     }
 }
