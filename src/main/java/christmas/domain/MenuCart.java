@@ -9,7 +9,7 @@ import java.util.Objects;
 public class MenuCart {
     private final Map<Menu, Integer> menus = new HashMap<>();
     private Integer allOrderCount = 0;
-    private final Map<MenuType, Integer> menuTypeCount = new HashMap<>();
+    private final Map<MenuType, Integer> menuTypeCounts = new HashMap<>();
 
     public void addMenu(Menu menu, Integer orderCount) {
         Objects.requireNonNull(menu);
@@ -18,7 +18,7 @@ public class MenuCart {
         validationOrderMenu(menu, orderCount);
         this.menus.put(menu, orderCount);
         allOrderCount += orderCount;
-        menuTypeCount.merge(menu.getMenu().getMenuType(), orderCount, Integer::sum);
+        menuTypeCounts.merge(menu.getMenu().getMenuType(), orderCount, Integer::sum);
     }
 
     private void validationOrderMenu(Menu menu, Integer orderCount) {
@@ -40,7 +40,12 @@ public class MenuCart {
     }
 
     public Integer getMenuTypeCount(MenuType type) {
-        return menuTypeCount.get(type);
+        Integer menuTypeCount = menuTypeCounts.get(type);
+        if (menuTypeCount == null) {
+            return Settings.ZERO.getValue();
+        }
+
+        return menuTypeCount;
     }
 
     public Integer getTotalOrderAmount() {

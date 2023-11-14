@@ -22,7 +22,7 @@ class DiscountsTest {
         Discounts discounts = new Discounts(addEvents);
 
         for (DiscountEvent event : addEvents) {
-            assertThat(discounts.getEvents()).containsKey(event);
+            assertThat(discounts.getAmountsByEvent()).containsKey(event);
         }
     }
 

@@ -73,4 +73,8 @@ public class Schedule {
     public DiscountEvent getEvent() {
         return event;
     }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
 }

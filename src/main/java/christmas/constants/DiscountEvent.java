@@ -7,11 +7,19 @@ public enum DiscountEvent {
     SPECIAL("특별 할인", 1_000),
     GIFT("증정 이벤트", 0);
 
-    private String name;
-    private Integer defaultDiscountAmount;
+    private final String name;
+    private final Integer defaultDiscountAmount;
 
     DiscountEvent(String name, Integer defaultDiscountAmount) {
         this.name = name;
         this.defaultDiscountAmount = defaultDiscountAmount;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Integer getDefaultDiscountAmount() {
+        return defaultDiscountAmount;
     }
 }

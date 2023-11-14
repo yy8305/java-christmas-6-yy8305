@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class Discounts {
-    private final Map<DiscountEvent, Integer> amounts = new HashMap<>();
+    private final Map<DiscountEvent, Integer> amountsByEvent = new HashMap<>();
     private final MenuCart giftMenus = new MenuCart();
 
     Discounts(List<DiscountEvent> events) {
@@ -20,12 +20,12 @@ public class Discounts {
 
     private void setEvents(List<DiscountEvent> events) {
         for (DiscountEvent event : events) {
-            this.amounts.put(event, Settings.ZERO_PRICE.getValue());
+            this.amountsByEvent.put(event, Settings.ZERO.getValue());
         }
     }
 
-    public Map<DiscountEvent, Integer> getEvents() {
-        return amounts;
+    public Map<DiscountEvent, Integer> getAmountsByEvent() {
+        return amountsByEvent;
     }
 
     public void addGiftMenu(MenuBook menu) {
