@@ -19,6 +19,17 @@ class DiscountsTest {
 
         Discounts discounts = new Discounts(addEvents);
 
-        assertThat(discounts.getEvents().keySet().toArray()).isEqualTo(addEvents.toArray());
+        for (DiscountEvent event : addEvents) {
+            assertThat(discounts.getEvents()).containsKey(event);
+        }
+    }
+
+    @DisplayName("할인 이벤트로 null을 전달할 경우 예외가 발생 한다.")
+    @Test
+    void testSetEventsNullExceptionCheck() {
+        assertThatNullPointerException().isThrownBy(() -> {
+            new Discounts(null);
+        });
+    }
     }
 }
