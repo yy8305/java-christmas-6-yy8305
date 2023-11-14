@@ -79,14 +79,26 @@ class MenuCartTest {
         assertThat(actual).isEqualTo(expectedCount);
     }
 
-    @DisplayName("장바구니에 담았던 애피타이저 메뉴 개수가 2개 이다.")
+    @DisplayName("장바구니에 담았던 애피타이저 메뉴 개수가 3개 이다.")
     @Test
     void testMenuTypeCount() {
-        Integer expectedCount = 3;
+        final Integer expectedCount = 3;
         cart.addMenu(new Menu("양송이수프"), 1);
         cart.addMenu(new Menu("타파스"), 2);
 
         Integer actual = cart.getMenuTypeCount(MenuType.APPETIZER);
+
+        assertThat(actual).isEqualTo(expectedCount);
+    }
+
+    @DisplayName("장바구니에 담긴 메뉴의 총 주문 금액은 17,000원 이다.")
+    @Test
+    void testGetTotalOrderMenu() {
+        final Integer expectedCount = 17_000;
+        cart.addMenu(new Menu("양송이수프"), 1);
+        cart.addMenu(new Menu("타파스"), 2);
+
+        Integer actual = cart.getTotalOrderAmount();
 
         assertThat(actual).isEqualTo(expectedCount);
     }
