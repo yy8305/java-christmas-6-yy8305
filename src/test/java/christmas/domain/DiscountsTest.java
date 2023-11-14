@@ -55,4 +55,26 @@ class DiscountsTest {
             discounts.addGiftMenu(null);
         });
     }
+
+    @DisplayName("저장되어 있는 크리스마스 이벤트에 대한 할인금액 0원에 100원을 더한다.")
+    @Test
+    void testAddAmountByEvent() {
+        final Integer addAmount = 100;
+        DiscountEvent christmasEvent = DiscountEvent.CHRISTMAS_D_DAY;
+        Discounts discounts = new Discounts(List.of(christmasEvent));
+        discounts.addAmountByEvent(christmasEvent, addAmount);
+
+        assertThat(discounts.getAmountsByEvent().get(christmasEvent)).isEqualTo(addAmount);
+    }
+
+    @DisplayName("이벤트별 할인 금액을 더할때 null을 전달할 경우 예외가 발생한다.")
+    @Test
+    void testAddAmountByEventHandlesNullException() {
+        DiscountEvent christmasEvent = DiscountEvent.CHRISTMAS_D_DAY;
+        Discounts discounts = new Discounts(List.of(christmasEvent));
+
+        assertThatNullPointerException().isThrownBy(() -> {
+            discounts.addAmountByEvent(christmasEvent, null);
+        });
+    }
 }
