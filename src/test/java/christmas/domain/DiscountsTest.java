@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 import christmas.constants.DiscountEvent;
 import christmas.constants.MenuBook;
+import christmas.constants.Settings;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -76,5 +77,15 @@ class DiscountsTest {
         assertThatNullPointerException().isThrownBy(() -> {
             discounts.addAmountByEvent(christmasEvent, null);
         });
+    }
+
+    @DisplayName("이벤트별 할인 금액이 0원인 이벤트를 Disounts에서 삭제한다면 Disounts에 저장된 amountByEvent 크기는 0 이다.")
+    @Test
+    void testRemoveEmptyAmountsByEvent() {
+        Discounts discounts = new Discounts(List.of(DiscountEvent.CHRISTMAS_D_DAY, DiscountEvent.WEEK_DAY));
+
+        discounts.removeEmptyAmountsByEvent();
+
+        assertThat(discounts.getAmountsByEvent().size()).isEqualTo(Settings.ZERO.getValue());
     }
 }
