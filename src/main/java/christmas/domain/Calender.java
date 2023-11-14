@@ -8,6 +8,7 @@ import java.util.Objects;
 
 public class Calender {
     private final List<Schedule> schedules = new ArrayList<>();
+    private LocalDate reservationDate;
 
     public void addSchedule(Schedule schedule) {
         schedules.add(schedule);
@@ -24,5 +25,15 @@ public class Calender {
         }
 
         return events;
+    }
+
+    public void setReservationDate(LocalDate reservationDate) {
+        Objects.requireNonNull(reservationDate);
+
+        this.reservationDate = reservationDate;
+    }
+
+    public LocalDate getReservationDate() {
+        return reservationDate;
     }
 }
