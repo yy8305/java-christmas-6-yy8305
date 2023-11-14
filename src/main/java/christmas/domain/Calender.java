@@ -2,6 +2,7 @@ package christmas.domain;
 
 import christmas.constants.DiscountEvent;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -35,5 +36,18 @@ public class Calender {
 
     public LocalDate getReservationDate() {
         return reservationDate;
+    }
+
+    public Integer getDaysSinceEventStart(DiscountEvent event) {
+        Objects.requireNonNull(reservationDate);
+
+        Integer daysUntilEvent = 0;
+        for (Schedule schedule : schedules) {
+            if (schedule.getEvent().equals(event) && schedule.isWithinRange(reservationDate)) {
+                daysUntilEvent = (int) schedule.getStartDate().until(reservationDate, ChronoUnit.DAYS);
+            }
+        }
+
+        return daysUntilEvent;
     }
 }
