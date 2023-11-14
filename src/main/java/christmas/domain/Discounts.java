@@ -47,4 +47,8 @@ public class Discounts {
             }
         }
     }
+
+    public void removeEmptyAmountsByEvent() {
+        amountsByEvent.entrySet().removeIf(map -> map.getValue() <= 0);
+    }
 }
