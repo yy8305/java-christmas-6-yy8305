@@ -130,4 +130,42 @@ class CalenderTest extends TestDefault {
             calender.setReservationDate(null);
         });
     }
+
+    @DisplayName("12월 3일은 크리스마스 디데이 이벤트 시작일로 부터 2일 지난 날짜 이다.")
+    @Test
+    void testGetDaysSinceEventStart() {
+        Integer expected = 2;
+        final LocalDate reservationDate = LocalDate.of(
+                Settings.EVENT_YEAR.getValue(), Settings.EVENT_MONTH.getValue(), 3
+        );
+        calender.setReservationDate(reservationDate);
+        allEventsSetup(calender);
+
+        Integer actual = calender.getDaysSinceEventStart(DiscountEvent.CHRISTMAS_D_DAY);
+
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @DisplayName("할인 이벤트 날짜 범위에 포함 되지 않는 날짜에 대한 이벤트 시작일로부터의 경과일을 구할 경우 0이다.")
+    @Test
+    void testGetDaysSinceEventStartForNonEventDateRange() {
+        Integer expected = 0;
+        final LocalDate reservationDate = LocalDate.of(
+                Settings.EVENT_YEAR.getValue(), 6, 3
+        );
+        calender.setReservationDate(reservationDate);
+        allEventsSetup(calender);
+
+        Integer actual = calender.getDaysSinceEventStart(DiscountEvent.CHRISTMAS_D_DAY);
+
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @DisplayName("할인 이벤트 시작일로부터의 경과일을 구할때 null을 전달할 경우 예외가 발생한다.")
+    @Test
+    void testGetDaysSinceEventStartNullExceptionCheck() {
+        assertThatNullPointerException().isThrownBy(() -> {
+            calender.getDaysSinceEventStart(null);
+        });
+    }
 }
