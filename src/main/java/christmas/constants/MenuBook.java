@@ -34,4 +34,8 @@ public enum MenuBook {
     public String getName() {
         return name;
     }
+
+    public Integer getAmount() {
+        return amount;
+    }
 }

@@ -42,4 +42,13 @@ public class MenuCart {
     public Integer getMenuTypeCount(MenuType type) {
         return menuTypeCount.get(type);
     }
+
+    public Integer getTotalOrderAmount() {
+        Integer amount = 0;
+        for (Menu menu : menus.keySet()) {
+            amount += menu.getMenu().getAmount() * menus.get(menu);
+        }
+
+        return amount;
+    }
 }
