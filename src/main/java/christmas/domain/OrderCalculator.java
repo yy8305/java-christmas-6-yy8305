@@ -4,12 +4,14 @@ import christmas.constants.DiscountEvent;
 import christmas.constants.MenuBook;
 import christmas.constants.MenuType;
 import christmas.constants.Settings;
+import java.util.Map;
 import java.util.Objects;
 
 public class OrderCalculator {
     private final Calender calender;
     private final MenuCart orderMenus;
     private final Discounts discounts;
+    private Integer totalDiscountsAmount;
 
     OrderCalculator(Calender calender, MenuCart orderMenus, Discounts discounts) {
         Objects.requireNonNull(calender);
@@ -62,5 +64,15 @@ public class OrderCalculator {
             discounts.addGiftMenu(giftMenu);
             discounts.addAmountByEvent(event, giftMenu.getAmount());
         }
+    }
+
+    public Integer getTotalDiscountsAmount() {
+        Integer amount = 0;
+        for (Map.Entry<DiscountEvent, Integer> amountsByEvent : discounts.getAmountsByEvent().entrySet()) {
+            amount += amountsByEvent.getValue();
+        }
+        totalDiscountsAmount = amount;
+
+        return amount;
     }
 }
