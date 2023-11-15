@@ -114,6 +114,15 @@ class MenuCartTest {
         assertThat(cart.getMenus().size()).isEqualTo(expectedSize);
     }
 
+    @DisplayName("사용자가 입력한 메뉴 리스트의 총 메뉴 개수가 20개 이상 일경우 예외가 발생한다.")
+    @ParameterizedTest
+    @ValueSource(strings = {"타파스-20", "티본스테이크-1,바비큐립-19"})
+    void testCreateCartFromUserInputHandlesMaxOrderCountException(String input) {
+        assertThatIllegalArgumentException().isThrownBy(() -> {
+            MenuCart.from(input);
+        });
+    }
+
     @DisplayName("사용자가 입력한 메뉴 리스트에서 개수가 숫자가 아닐 경우 예외가 발생한다.")
     @ParameterizedTest
     @ValueSource(strings = {"타파스-a,제로콜라-b", "티본스테이크-@"})
