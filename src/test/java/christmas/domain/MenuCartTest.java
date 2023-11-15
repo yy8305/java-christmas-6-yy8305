@@ -102,4 +102,60 @@ class MenuCartTest {
 
         assertThat(actual).isEqualTo(expectedCount);
     }
+
+    @DisplayName("사용자가 입력한 메뉴 리스트를 통해 생성한 메뉴 장바구니의 크기는 입력한 메뉴 개수와 동일하다.")
+    @ParameterizedTest
+    @ValueSource(strings = {"타파스-1,제로콜라-1", "티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1"})
+    void testCreateCartFromUserInput(String input) {
+        Integer expectedSize = input.split(",").length;
+
+        MenuCart cart = MenuCart.createCartFromUserInput(input);
+
+        assertThat(cart.getMenus().size()).isEqualTo(expectedSize);
+    }
+
+    @DisplayName("사용자가 입력한 메뉴 리스트에서 개수가 숫자가 아닐 경우 예외가 발생한다.")
+    @ParameterizedTest
+    @ValueSource(strings = {"타파스-a,제로콜라-b", "티본스테이크-@"})
+    void testCreateCartFromUserInputHandlesNumericException(String input) {
+        assertThatIllegalArgumentException().isThrownBy(() -> {
+            MenuCart.createCartFromUserInput(input);
+        });
+    }
+
+    @DisplayName("사용자가 입력한 메뉴 리스트에서 개수가 1미만일 경우 예외가 발생한다.")
+    @ParameterizedTest
+    @ValueSource(strings = {"타파스--1", "티본스테이크-0"})
+    void testCreateCartFromUserInputHandlesMinCountException(String input) {
+        assertThatIllegalArgumentException().isThrownBy(() -> {
+            MenuCart.createCartFromUserInput(input);
+        });
+    }
+
+    @DisplayName("사용자가 입력한 메뉴 리스트에서 메뉴가 중복될 경우 예외가 발생한다.")
+    @ParameterizedTest
+    @ValueSource(strings = {"타파스-1,타파스-1", "티본스테이크-1,티본스테이크-2"})
+    void testCreateCartFromUserInputHandlesDuplicateException(String input) {
+        assertThatIllegalArgumentException().isThrownBy(() -> {
+            MenuCart.createCartFromUserInput(input);
+        });
+    }
+
+    @DisplayName("사용자가 입력한 메뉴 리스트가 메뉴판에 없는 메뉴일 경우 예외가 발생한다.")
+    @ParameterizedTest
+    @ValueSource(strings = {"햄버거-1,피자-1", "빅맥-12"})
+    void testCreateCartFromUserInputHandlesPresenceOnTheMenuException(String input) {
+        assertThatIllegalArgumentException().isThrownBy(() -> {
+            MenuCart.createCartFromUserInput(input);
+        });
+    }
+
+    @DisplayName("사용자가 입력한 메뉴 리스트가 형식에 맞지 않을 경우 예외가 발생한다.")
+    @ParameterizedTest
+    @ValueSource(strings = {"타파스1,제로콜라-1", ",티본스테이크-1,바비큐립-1", "-,-", "-1,-2"})
+    void testCreateCartFromUserInputHandlesMenuListPatternException(String input) {
+        assertThatIllegalArgumentException().isThrownBy(() -> {
+            MenuCart.createCartFromUserInput(input);
+        });
+    }
 }
