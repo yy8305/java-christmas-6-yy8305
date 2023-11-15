@@ -15,6 +15,12 @@ public class Calender {
         schedules.add(schedule);
     }
 
+    public void addSchedule(List<Schedule> schedules) {
+        for (Schedule schedule : schedules) {
+            this.schedules.add(schedule);
+        }
+    }
+
     public List<DiscountEvent> getDiscountEventForDate(LocalDate date) {
         Objects.requireNonNull(date);
 

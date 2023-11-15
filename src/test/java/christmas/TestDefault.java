@@ -18,17 +18,7 @@ public class TestDefault {
     protected final Integer christmasDay = 25;
 
     protected Schedule scheduleBuild(Integer start, Integer end, DiscountEvent event, List<DayOfWeek> days) {
-        Builder schedule = new Schedule.Builder(
-                LocalDate.of(eventYear, eventMonth, start),
-                LocalDate.of(eventYear, eventMonth, end),
-                event
-        );
-
-        if (days != null) {
-            schedule.excludedDays(days);
-        }
-
-        return schedule.build();
+        return Schedule.eventScheduleBuild(start, end, event, days);
     }
 
     protected void allEventsSetup(Calender calender) {

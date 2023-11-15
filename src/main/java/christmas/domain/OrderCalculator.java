@@ -25,14 +25,23 @@ public class OrderCalculator {
     }
 
     public void setDiscountsAmountByEvent() {
+        if (orderMenus.getTotalOrderAmount() < Settings.MIN_ORDER_AMOUNT.getValue()) {
+            discounts.removeEmptyAmountsByEvent();
+            return;
+        }
+
         for (DiscountEvent event : discounts.getAmountsByEvent().keySet()) {
-            if(event.equals(DiscountEvent.CHRISTMAS_D_DAY)) setChristmasEventDiscount(event);
-            if(event.equals(DiscountEvent.WEEK_DAY)) setWeekDayEventDiscount(event);
-            if(event.equals(DiscountEvent.WEEK_END)) setWeekEndEventDiscount(event);
-            if(event.equals(DiscountEvent.SPECIAL)) setSpecialEventDiscount(event);
-            if(event.equals(DiscountEvent.GIFT)) setGiftEventDiscount(event);
+            setDiscountByEvent(event);
         }
         discounts.removeEmptyAmountsByEvent();
+    }
+
+    private void setDiscountByEvent(DiscountEvent event) {
+        if(event.equals(DiscountEvent.CHRISTMAS_D_DAY)) setChristmasEventDiscount(event);
+        if(event.equals(DiscountEvent.WEEK_DAY)) setWeekDayEventDiscount(event);
+        if(event.equals(DiscountEvent.WEEK_END)) setWeekEndEventDiscount(event);
+        if(event.equals(DiscountEvent.SPECIAL)) setSpecialEventDiscount(event);
+        if(event.equals(DiscountEvent.GIFT)) setGiftEventDiscount(event);
     }
 
     private void setChristmasEventDiscount(DiscountEvent event) {

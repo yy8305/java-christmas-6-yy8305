@@ -1,6 +1,7 @@
 package christmas.domain;
 
 import christmas.constants.DiscountEvent;
+import christmas.constants.Settings;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -56,6 +57,20 @@ public class Schedule {
             ).build());
         }
         return schedules;
+    }
+
+    public static Schedule eventScheduleBuild(Integer start, Integer end, DiscountEvent event, List<DayOfWeek> days) {
+        Builder schedule = new Schedule.Builder(
+                LocalDate.of(Settings.EVENT_YEAR.getValue(), Settings.EVENT_MONTH.getValue(), start),
+                LocalDate.of(Settings.EVENT_YEAR.getValue(), Settings.EVENT_MONTH.getValue(), end),
+                event
+        );
+
+        if (days != null) {
+            schedule.excludedDays(days);
+        }
+
+        return schedule.build();
     }
 
     public boolean isWithinRange(LocalDate date) {
