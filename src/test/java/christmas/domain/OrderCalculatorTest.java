@@ -33,7 +33,7 @@ class OrderCalculatorTest extends TestDefault {
     }
 
     @Nested
-    @DisplayName("할인이 있을 경우")
+    @DisplayName("주문 & 할인이 있을 경우")
     class InCaseOfDiscount {
         @BeforeEach
         void testInit() {
@@ -65,10 +65,20 @@ class OrderCalculatorTest extends TestDefault {
 
             assertThat(actual).isEqualTo(expectedTotalDiscountAmount);
         }
+
+        @DisplayName("총 결제 금액은 135,754원 이다. (총 주문 금액: 142,000,할인 금액 : 6,246원)")
+        @Test
+        void testGetTotalPaymentAmount() {
+            final Integer expectedTotalPaymentAmount = 135_754;
+
+            Integer actual = calculator.getTotalPaymentAmount();
+
+            assertThat(actual).isEqualTo(expectedTotalPaymentAmount);
+        }
     }
 
     @Nested
-    @DisplayName("할인이 없을 경우")
+    @DisplayName("주문 & 할인이 없을 경우")
     class InCaseOfNoDiscount {
         @BeforeEach
         void testInit() {
@@ -85,6 +95,26 @@ class OrderCalculatorTest extends TestDefault {
         @Test
         void testSetDiscountsAmountWithoutEvent() {
             assertThat(discounts.getAmountsByEvent().size()).isEqualTo(Settings.ZERO.getValue());
+        }
+
+        @DisplayName("총 할인 금액은 0원 이다.")
+        @Test
+        void testGetTotalDiscountsAmount() {
+            final Integer expectedTotalDiscountAmount = 0;
+
+            Integer actual = calculator.getTotalDiscountsAmount();
+
+            assertThat(actual).isEqualTo(expectedTotalDiscountAmount);
+        }
+
+        @DisplayName("총 결제 금액은 0원 이다.")
+        @Test
+        void testGetTotalPaymentAmount() {
+            final Integer expectedTotalPaymentAmount = 0;
+
+            Integer actual = calculator.getTotalPaymentAmount();
+
+            assertThat(actual).isEqualTo(expectedTotalPaymentAmount);
         }
     }
 }
