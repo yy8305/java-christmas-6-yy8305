@@ -25,6 +25,7 @@ public class EventPlanner {
         initSettings();
         showGreeting();
         receiveCustomerOrder();
+        showDiscountBenefit();
     }
 
     private void initSettings() {
@@ -88,5 +89,15 @@ public class EventPlanner {
         discounts = new Discounts(calender.getDiscountEventForDate(calender.getReservationDate()));
         calculator = new OrderCalculator(calender, orderMenus, discounts);
         calculator.setDiscountsAmountByEvent();
+    }
+
+    private void showDiscountBenefit() {
+        output.showOrderMenus(orderMenus);
+        output.showPreDiscountTotalOrderAmount(orderMenus.getTotalOrderAmount());
+        output.showGiftMenu(discounts.getGiftMenus());
+        output.showDiscounts(discounts.getAmountsByEvent());
+        output.showTotalDiscountAmount(calculator.getTotalDiscountsAmount());
+        output.showTotalPaymentAmount(calculator.getTotalPaymentAmount());
+        output.showEventBadge(calculator.getEventBadge().getName());
     }
 }
