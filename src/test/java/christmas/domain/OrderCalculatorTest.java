@@ -75,6 +75,16 @@ class OrderCalculatorTest extends TestDefault {
 
             assertThat(actual).isEqualTo(expectedTotalPaymentAmount);
         }
+
+        @DisplayName("총 할인 금액이 31,246원 이므로 이벤트 뱃지는 '산타' 이다.")
+        @Test
+        void testGetEventBadge() {
+            final String expectedBadgeName = "산타";
+
+            String actual = calculator.getEventBadge().getName();
+
+            assertThat(actual).isEqualTo(expectedBadgeName);
+        }
     }
 
     @Nested
@@ -115,6 +125,16 @@ class OrderCalculatorTest extends TestDefault {
             Integer actual = calculator.getTotalPaymentAmount();
 
             assertThat(actual).isEqualTo(expectedTotalPaymentAmount);
+        }
+
+        @DisplayName("총 할인 금액이 0원 이므로 이벤트 뱃지는 '없음' 이다.")
+        @Test
+        void testGetEventBadge() {
+            final String expectedBadgeName = "없음";
+
+            String actual = calculator.getEventBadge().getName();
+
+            assertThat(actual).isEqualTo(expectedBadgeName);
         }
     }
 }
