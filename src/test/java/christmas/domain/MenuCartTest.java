@@ -32,7 +32,7 @@ class MenuCartTest {
     @DisplayName("장바구니에 중복되는 메뉴를 추가 할 경우 예외가 발생한다.")
     @ParameterizedTest
     @ValueSource(strings = {"양송이수프", "타파스", "시저샐러드", "티본스테이크", "바비큐립", "해산물파스타", "크리스마스파스타", "초코케이크", "아이스크림"})
-    void testAddMenuDuplicateExceptionCheck(String menuName) {
+    void testAddMenuHandlesDuplicateException(String menuName) {
         cart.addMenu(new Menu(menuName), 1);
 
         assertThatIllegalArgumentException().isThrownBy(() -> {
@@ -42,7 +42,7 @@ class MenuCartTest {
 
     @DisplayName("장바구니에 최소 갯수 미만의 메뉴를 추가 할 경우 예외가 발생한다.")
     @Test
-    void testAddMenuMinOrderExceptionCheck() {
+    void testAddMenuHandlesMinOrderException() {
         assertThatIllegalArgumentException().isThrownBy(() -> {
             cart.addMenu(new Menu("양송이수프"), 0);
         });
@@ -50,7 +50,7 @@ class MenuCartTest {
 
     @DisplayName("장바구니에 20개 이상의 메뉴를 추가 할 경우 예외가 발생한다.")
     @Test
-    void testAddMenuMaxOrderExceptionCheck() {
+    void testAddMenuHandlesMaxOrderException() {
         cart.addMenu(new Menu("양송이수프"), 19);
 
         assertThatIllegalArgumentException().isThrownBy(() -> {
@@ -60,7 +60,7 @@ class MenuCartTest {
 
     @DisplayName("장바구니에 null을 전달 할 경우 예외가 발생한다.")
     @Test
-    void testAddMenuNullExceptionCheck() {
+    void testAddMenuHandlesNullException() {
         assertThatNullPointerException().isThrownBy(() -> {
             cart.addMenu(null, 1);
         });

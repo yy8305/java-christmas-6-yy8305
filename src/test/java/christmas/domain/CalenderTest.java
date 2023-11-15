@@ -125,7 +125,7 @@ class CalenderTest extends TestDefault {
 
     @DisplayName("예약 날짜를 달력에 저장 할때 null을 전달할 경우 예외가 발생 한다.")
     @Test
-    void testSetReservationDateNullExceptionCheck() {
+    void testSetReservationDateHandlesNullException() {
         assertThatNullPointerException().isThrownBy(() -> {
             calender.setReservationDate(null);
         });
@@ -163,7 +163,7 @@ class CalenderTest extends TestDefault {
 
     @DisplayName("할인 이벤트 시작일로부터의 경과일을 구할때 null을 전달할 경우 예외가 발생한다.")
     @Test
-    void testGetDaysSinceEventStartNullExceptionCheck() {
+    void testGetDaysSinceEventStartHandlesNullException() {
         assertThatNullPointerException().isThrownBy(() -> {
             calender.getDaysSinceEventStart(null);
         });

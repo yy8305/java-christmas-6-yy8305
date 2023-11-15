@@ -29,7 +29,7 @@ class DiscountsTest {
 
     @DisplayName("할인 이벤트로 null을 전달할 경우 예외가 발생 한다.")
     @Test
-    void testSetEventsNullExceptionCheck() {
+    void testSetEventsHandlesNullException() {
         assertThatNullPointerException().isThrownBy(() -> {
             new Discounts(null);
         });
@@ -49,7 +49,7 @@ class DiscountsTest {
 
     @DisplayName("증정 메뉴로 null을 전달할 경우 예외가 발생 한다.")
     @Test
-    void testAddGiftMenuNullExceptionCheck() {
+    void testAddGiftMenuHandlesNullException() {
         Discounts discounts = new Discounts(List.of(DiscountEvent.GIFT));
 
         assertThatNullPointerException().isThrownBy(() -> {
