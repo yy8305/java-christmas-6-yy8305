@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.constants.ErrorMessages;
 import christmas.constants.MenuBook;
 import java.util.Objects;
 
@@ -23,7 +24,7 @@ public class Menu {
             }
         }
 
-        throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        throw new IllegalArgumentException(ErrorMessages.INVALID_ORDER_MENU.getMessage());
     }
 
     public MenuBook getMenu() {

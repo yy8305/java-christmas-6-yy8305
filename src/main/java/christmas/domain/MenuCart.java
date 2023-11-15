@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.constants.ErrorMessages;
 import christmas.constants.MenuType;
 import christmas.constants.Settings;
 import java.util.HashMap;
@@ -23,15 +24,15 @@ public class MenuCart {
 
     private void validationOrderMenu(Menu menu, Integer orderCount) {
         if (this.menus.containsKey(menu)) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessages.INVALID_ORDER_MENU.getMessage());
         }
 
         if (orderCount < Settings.MIN_ORDER_COUNT.getValue()) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessages.INVALID_ORDER_MENU.getMessage());
         }
 
         if ((allOrderCount + orderCount) >= Settings.MAX_ORDER_COUNT.getValue()) {
-            throw new IllegalArgumentException("[ERROR] 메뉴는 한 번에 최대 20개 까지만 주문할 수 있습니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessages.MAX_ORDER_MENU_COUNT.getMessage());
         }
     }
 
