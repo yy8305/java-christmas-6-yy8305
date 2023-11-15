@@ -1,7 +1,12 @@
 package christmas;
 
+import christmas.domain.EventPlanner;
+import christmas.util.InputView;
+import christmas.util.OutputView;
+
 public class Application {
     public static void main(String[] args) {
-        // TODO: 프로그램 구현
+        EventPlanner planner = new EventPlanner(new OutputView(), new InputView());
+        planner.call();
     }
 }
