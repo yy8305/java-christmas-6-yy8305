@@ -1,6 +1,7 @@
 package christmas.domain;
 
 import christmas.constants.DiscountEvent;
+import christmas.constants.EventBadge;
 import christmas.constants.MenuBook;
 import christmas.constants.MenuType;
 import christmas.constants.Settings;
@@ -90,5 +91,20 @@ public class OrderCalculator {
         }
 
         return amount;
+    }
+
+    public EventBadge getEventBadge() {
+        if (totalDiscountsAmount == null) {
+            getTotalDiscountsAmount();
+        }
+        Integer totalDiscount = totalDiscountsAmount;
+
+        for (EventBadge badge : EventBadge.values()) {
+            if (badge.getThreshold() <= totalDiscount) {
+                return badge;
+            }
+        }
+
+        return EventBadge.EMPTY;
     }
 }
