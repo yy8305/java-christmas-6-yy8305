@@ -75,4 +75,20 @@ public class OrderCalculator {
 
         return amount;
     }
+
+    public Integer getTotalPaymentAmount() {
+        Integer amount = 0;
+        if (totalDiscountsAmount == null) {
+            getTotalDiscountsAmount();
+        }
+        amount += orderMenus.getTotalOrderAmount();
+        amount -= totalDiscountsAmount;
+
+        MenuCart giftMenus = discounts.getGiftMenus();
+        if (giftMenus.getMenus().size() > Settings.ZERO.getValue()) {
+            amount += giftMenus.getTotalOrderAmount();
+        }
+
+        return amount;
+    }
 }
