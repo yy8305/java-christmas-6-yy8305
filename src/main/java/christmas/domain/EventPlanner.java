@@ -19,6 +19,7 @@ public class EventPlanner {
 
     public void call() {
         initSettings();
+        showGreeting();
     }
 
     private void initSettings() {
@@ -67,5 +68,9 @@ public class EventPlanner {
 
     private void addGiftEventSchedule(Integer startDay, Integer endDay) {
         calender.addSchedule(Schedule.eventScheduleBuild(startDay, endDay, DiscountEvent.GIFT, null));
+    }
+
+    private void showGreeting() {
+        output.showGreeting();
     }
 }
