@@ -66,4 +66,20 @@ class OrderCalculatorTest extends TestDefault {
 
         assertThat(discounts.getAmountsByEvent().size()).isEqualTo(Settings.ZERO.getValue());
     }
+
+    @DisplayName("총 할인 금액은 31,246원 이다. (크리스마스 디데이 할인: -1,200원, 평일 할인: -4,046원, 특별 할인: -1,000원, 증정 이벤트: -25,000원)")
+    @Test
+    void testGetTotalDiscountsAmount() {
+        final Integer expectedTotalDiscountAmount = 31_246;
+        setOrderMenus();
+        final LocalDate reservationDate = LocalDate.of(eventYear, eventMonth, 3);
+        calender.setReservationDate(reservationDate);
+        discounts = new Discounts(calender.getDiscountEventForDate(reservationDate));
+        calculator = new OrderCalculator(calender, orderMenus, discounts);
+        calculator.setDiscountsAmountByEvent();
+
+        Integer actual = calculator.getTotalDiscountsAmount();
+
+        assertThat(actual).isEqualTo(expectedTotalDiscountAmount);
+    }
 }
