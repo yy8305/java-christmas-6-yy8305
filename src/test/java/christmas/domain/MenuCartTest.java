@@ -109,7 +109,7 @@ class MenuCartTest {
     void testCreateCartFromUserInput(String input) {
         Integer expectedSize = input.split(",").length;
 
-        MenuCart cart = MenuCart.createCartFromUserInput(input);
+        MenuCart cart = MenuCart.from(input);
 
         assertThat(cart.getMenus().size()).isEqualTo(expectedSize);
     }
@@ -119,7 +119,7 @@ class MenuCartTest {
     @ValueSource(strings = {"타파스-a,제로콜라-b", "티본스테이크-@"})
     void testCreateCartFromUserInputHandlesNumericException(String input) {
         assertThatIllegalArgumentException().isThrownBy(() -> {
-            MenuCart.createCartFromUserInput(input);
+            MenuCart.from(input);
         });
     }
 
@@ -128,7 +128,7 @@ class MenuCartTest {
     @ValueSource(strings = {"타파스--1", "티본스테이크-0"})
     void testCreateCartFromUserInputHandlesMinCountException(String input) {
         assertThatIllegalArgumentException().isThrownBy(() -> {
-            MenuCart.createCartFromUserInput(input);
+            MenuCart.from(input);
         });
     }
 
@@ -137,7 +137,7 @@ class MenuCartTest {
     @ValueSource(strings = {"타파스-1,타파스-1", "티본스테이크-1,티본스테이크-2"})
     void testCreateCartFromUserInputHandlesDuplicateException(String input) {
         assertThatIllegalArgumentException().isThrownBy(() -> {
-            MenuCart.createCartFromUserInput(input);
+            MenuCart.from(input);
         });
     }
 
@@ -146,7 +146,7 @@ class MenuCartTest {
     @ValueSource(strings = {"햄버거-1,피자-1", "빅맥-12"})
     void testCreateCartFromUserInputHandlesPresenceOnTheMenuException(String input) {
         assertThatIllegalArgumentException().isThrownBy(() -> {
-            MenuCart.createCartFromUserInput(input);
+            MenuCart.from(input);
         });
     }
 
@@ -155,7 +155,7 @@ class MenuCartTest {
     @ValueSource(strings = {"타파스1,제로콜라-1", ",티본스테이크-1,바비큐립-1", "-,-", "-1,-2"})
     void testCreateCartFromUserInputHandlesMenuListPatternException(String input) {
         assertThatIllegalArgumentException().isThrownBy(() -> {
-            MenuCart.createCartFromUserInput(input);
+            MenuCart.from(input);
         });
     }
 }
